@@ -85,8 +85,11 @@ public abstract class BrowserAbstract {
       server = new NetworkTrafficInterceptor();
       server.startSeleniumProxyServer();
       String countryCode = Configuration.getCountryCode();
-      if (StringUtils.isNotBlank(countryCode)) {
-        String proxyAddress = GeoEdgeProxy.getProxyAddress(countryCode);
+      String proxyAddress = Configuration.getProxyAddress();
+      if (StringUtils.isNotBlank(proxyAddress)) {
+        server.setProxyServer(proxyAddress);
+      } else if (StringUtils.isNotBlank(countryCode)) {
+        proxyAddress = GeoEdgeProxy.getProxyAddress(countryCode);
         server.setProxyServer(proxyAddress);
       }
       caps.setCapability(CapabilityType.PROXY, server.seleniumProxy());

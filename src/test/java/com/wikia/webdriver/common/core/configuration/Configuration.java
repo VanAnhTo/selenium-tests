@@ -172,8 +172,12 @@ public class Configuration {
     return getProp("countryCode");
   }
 
+  public static String getProxyAddress() {
+    return getProp("proxyAddress");
+  }
+
   public static boolean useProxy(){
-    return Boolean.valueOf(getProp("useProxy")) || StringUtils.isNotBlank(getCountryCode());
+    return Boolean.valueOf(getProp("useProxy")) || StringUtils.isNotBlank(getCountryCode()) || StringUtils.isNotBlank(getProxyAddress());
   }
 
   /**
