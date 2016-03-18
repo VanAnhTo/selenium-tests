@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
  */
 public class TestAdTypeMobile extends MobileTestTemplate {
 
-  private static final String SRC = "gpt";
+  private static final String SRC = "mobile";
 
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_001", "TestAdType", "MobileAds"},
@@ -58,9 +58,6 @@ public class TestAdTypeMobile extends MobileTestTemplate {
     ads.verifyGptIframe(adUnit, slotName, SRC);
     ads.verifySlotExpanded(slotName);
   }
-
-
-
 
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_004", "TestAdType"},

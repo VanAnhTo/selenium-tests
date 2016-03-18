@@ -71,18 +71,6 @@ public class AdTypeDataProvider {
   }
 
   @DataProvider
-  public static final Object[][] asyncSuccessNoAdOasis() {
-    return new Object[][]{
-        {
-            "adtest", "SyntheticTests/Async/Success/NoAd",
-            "wka.life/_adtest//article",
-            "TOP_RIGHT_BOXAD"
-            // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98184132
-        },
-        };
-  }
-
-  @DataProvider
   public static final Object[][] asyncHopWithAd() {
     return new Object[][]{
         {
