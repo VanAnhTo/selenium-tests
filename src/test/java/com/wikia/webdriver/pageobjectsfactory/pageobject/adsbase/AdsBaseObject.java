@@ -369,6 +369,17 @@ public class AdsBaseObject extends WikiBasePageObject {
     return this;
   }
 
+  public void verifyImgAdLoadedInSlot(String slotName, String expectedImg) {
+    WebElement slot = driver.findElement(By.id(slotName));
+    if (checkIfSlotExpanded(slot)) {
+      String foundImg = getSlotImageAd(slot);
+      Assertion.assertStringContains(foundImg, expectedImg);
+    } else {
+      throw new NoSuchElementException("Slot is collapsed - should be expanded");
+    }
+    PageObjectLogging.log("AdInSlot", "Ad found in slot", true, driver);
+  }
+
   public void waitForSlotCollapsed(WebElement slot) {
     waitForElementToHaveSize(0, 0, slot);
   }
@@ -380,6 +391,10 @@ public class AdsBaseObject extends WikiBasePageObject {
         return checkIfSlotExpanded(slot);
       }
     });
+  }
+
+  public void waitForSlot(String slotName) {
+    wait.forElementVisible(By.cssSelector("#" + slotName));
   }
 
   public String getGptParams(String slotName, String attr) {

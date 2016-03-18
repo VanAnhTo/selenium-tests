@@ -12,14 +12,14 @@ import org.testng.annotations.Test;
  */
 public class TestAdTypeMobile extends MobileTestTemplate {
 
-  private static final String SRC = "mobile";
+  private static final String SRC = "gpt";
 
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_001", "TestAdType", "MobileAds"},
       dataProviderClass = AdTypeDataProvider.class,
-      dataProvider = "asyncSuccessWithAd"
+      dataProvider = "asyncSuccessWithAdMercury"
   )
-  public void TestAdTypeAsync_001_imageAd(String wikiName, String article, String adUnit,
+  public void TestAdTypeAsync_001_imageAdMercury(String wikiName, String article, String adUnit,
                                           String slotName, String imgUrl) {
     String testedPage = urlBuilder.getUrlForPath(wikiName, article);
     MobileAdsBaseObject ads = new MobileAdsBaseObject(driver, testedPage);
@@ -31,10 +31,10 @@ public class TestAdTypeMobile extends MobileTestTemplate {
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_002", "TestAdType"},
       dataProviderClass = AdTypeDataProvider.class,
-      dataProvider = "asyncHopNoAd"
+      dataProvider = "asyncHopNoAdMercury"
   )
-  public void TestAdTypeAsync_002_noAd(String wikiName, String article, String adUnit,
-                                       String slotName, String slotName2) {
+  public void TestAdTypeAsync_002_noAdMercury(String wikiName, String article, String adUnit,
+                                              String slotName, String slotName2) {
     String testedPage = urlBuilder.getUrlForPath(wikiName, article);
     MobileAdsBaseObject ads = new MobileAdsBaseObject(driver, testedPage);
     ads.wait.forElementPresent(By.id(slotName));
@@ -48,16 +48,19 @@ public class TestAdTypeMobile extends MobileTestTemplate {
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_003", "TestAdType"},
       dataProviderClass = AdTypeDataProvider.class,
-      dataProvider = "asyncSuccessNoAd"
+      dataProvider = "asyncSuccessNoAdMercury"
   )
-  public void TestAdTypeAsync_003_noAdSuccess(String wikiName, String article, String adUnit,
-                                              String slotName) {
+  public void TestAdTypeAsync_003_noAdSuccessMercury(String wikiName, String article, String adUnit,
+                                                     String slotName) {
     String testedPage = urlBuilder.getUrlForPath(wikiName, article);
     MobileAdsBaseObject ads = new MobileAdsBaseObject(driver, testedPage);
     ads.wait.forElementPresent(By.id(slotName));
     ads.verifyGptIframe(adUnit, slotName, SRC);
     ads.verifySlotExpanded(slotName);
   }
+
+
+
 
   @Test(
       groups = {"MobileAds", "TestAdTypeAsync_004", "TestAdType"},

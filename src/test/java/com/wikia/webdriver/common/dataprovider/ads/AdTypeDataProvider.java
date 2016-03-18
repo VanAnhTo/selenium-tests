@@ -8,7 +8,7 @@ public class AdTypeDataProvider {
   }
 
   @DataProvider
-  public static final Object[][] asyncSuccessWithAd() {
+  public static final Object[][] asyncSuccessWithAdMercury() {
     return new Object[][]{
         {
             "adtest", "SyntheticTests/Async/Success",
@@ -21,7 +21,21 @@ public class AdTypeDataProvider {
   }
 
   @DataProvider
-  public static final Object[][] asyncHopNoAd() {
+  public static final Object[][] asyncSuccessWithAdOasis() {
+    return new Object[][]{
+        {
+            "adtest", "SyntheticTests/Async/Success",
+            "wka.life/_adtest//article",
+            "TOP_RIGHT_BOXAD",
+            "googlesyndication.com/pagead/imgad?id=CICAgKCNj62dEhCsAhj6ASgBMgjBw3U0lR5Thg"
+            // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98183292
+        },
+        };
+  }
+
+
+  @DataProvider
+  public static final Object[][] asyncHopNoAdMercury() {
     return new Object[][]{
         {
             "adtest", "SyntheticTests/Async/Hop",
@@ -29,11 +43,23 @@ public class AdTypeDataProvider {
             "MOBILE_PREFOOTER", "MOBILE_IN_CONTENT"
             // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98183652
         },
-    };
+        };
   }
 
   @DataProvider
-  public static final Object[][] asyncSuccessNoAd() {
+  public static final Object[][] asyncHopNoAdOasis() {
+    return new Object[][]{
+        {
+            "adtest", "SyntheticTests/Async/Hop",
+            "wka.life/_adtest//article",
+            "TOP_RIGHT_BOXAD"
+            // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98183652
+        },
+        };
+  }
+
+  @DataProvider
+  public static final Object[][] asyncSuccessNoAdMercury() {
     return new Object[][]{
         {
             "adtest", "SyntheticTests/Async/Success/NoAd",
@@ -42,6 +68,18 @@ public class AdTypeDataProvider {
             // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98184132
         },
     };
+  }
+
+  @DataProvider
+  public static final Object[][] asyncSuccessNoAdOasis() {
+    return new Object[][]{
+        {
+            "adtest", "SyntheticTests/Async/Success/NoAd",
+            "wka.life/_adtest//article",
+            "TOP_RIGHT_BOXAD"
+            // https://www.google.com/dfp/5441#delivery/LineItemDetail/orderId=245575332&lineItemId=98184132
+        },
+        };
   }
 
   @DataProvider
