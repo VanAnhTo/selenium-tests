@@ -120,7 +120,7 @@ public class EditorTests extends NewTestTemplate {
     );
   }
 
-  @Test(groups = "MercuryCuratedEditorTest_002")
+  @Test(groups = "MercuryCuratedEditorTest_002", invocationCount = 20)
   @RelatedIssue(issueID = "XW-829, XW-1281", comment = "Unstable when run in parallel")
   public void MercuryCuratedEditorTest_002_addAndSaveSection() {
     init();
