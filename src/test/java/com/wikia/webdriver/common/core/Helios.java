@@ -88,8 +88,8 @@ public class Helios {
     List<NameValuePair> nvps = new ArrayList<>();
 
     nvps.add(new BasicNameValuePair("grant_type", HeliosConfig.GrantType.PASSWORD.getGrantType()));
-    nvps.add(new BasicNameValuePair("client_id", clientId));
-    nvps.add(new BasicNameValuePair("client_secret", clientSecret));
+//    nvps.add(new BasicNameValuePair("client_id", clientId));
+//    nvps.add(new BasicNameValuePair("client_secret", clientSecret));
     nvps.add(new BasicNameValuePair("username", userName));
     nvps.add(new BasicNameValuePair("password", password));
 

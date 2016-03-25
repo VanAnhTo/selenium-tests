@@ -1,10 +1,13 @@
 package com.wikia.webdriver.common.core.api;
 
 import com.wikia.webdriver.common.core.Helios;
+import com.wikia.webdriver.common.core.configuration.Configuration;
 import com.wikia.webdriver.common.core.helpers.User;
 import com.wikia.webdriver.common.logging.PageObjectLogging;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -48,7 +51,14 @@ public abstract class ApiCall {
   public void call() {
     try {
       URL url = new URL(getURL());
-      CloseableHttpClient httpClient = HttpClientBuilder.create().disableAutomaticRetries().build();
+      HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
+      httpClientBuilder.disableAutomaticRetries();
+      String proxyAddress = Configuration.getEffectiveProxyAddress();
+      if (StringUtils.isNotBlank(proxyAddress)) {
+        HttpHost proxyHost = HttpHost.create(proxyAddress);
+        httpClientBuilder.setProxy(proxyHost);
+      }
+      CloseableHttpClient httpClient = httpClientBuilder.build();
       HttpPost httpPost = getHtppPost(url);
       // set header
       if (getUser() != null) {

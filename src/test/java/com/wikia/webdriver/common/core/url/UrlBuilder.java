@@ -65,6 +65,13 @@ public class UrlBuilder {
       suffix = wikiName.endsWith("wikia") ? ".com" : ".wikia.com";
     }
 
+    switch (Configuration.getEnv()){
+      case "staging" : {
+        prefix = "";
+        suffix = ".wikia-staging.com";
+      }
+    }
+
     return composeUrl(prefix, wikiName, suffix);
   }
 
@@ -82,16 +89,16 @@ public class UrlBuilder {
   private String composeUrl(String prefix, String wikiName, String suffix) {
     String overwrittenWikiName = wikiName;
     String overwrittenPrefix = prefix;
-    if (env != null) {
-      if ((!env.contains("dev") || env.contains(SANDBOX_MERCURY_DEV)) && !"prod".equals(env)) {
-        overwrittenPrefix = env + "." + prefix;
-      }
-
-      if (env.contains("dev") && !env.contains(SANDBOX_MERCURY_DEV) &&
-          !"CHROMEMOBILEMERCURY".equalsIgnoreCase(browser) && wikiName.endsWith("wikia")) {
-        overwrittenWikiName = "wikiaglobal";
-      }
-    }
+//    if (env != null) {
+//      if ((!env.contains("dev") || env.contains(SANDBOX_MERCURY_DEV)) && !"prod".equals(env)) {
+//        overwrittenPrefix = env + "." + prefix;
+//      }
+//
+//      if (env.contains("dev") && !env.contains(SANDBOX_MERCURY_DEV) &&
+//          !"CHROMEMOBILEMERCURY".equalsIgnoreCase(browser) && wikiName.endsWith("wikia")) {
+//        overwrittenWikiName = "wikiaglobal";
+//      }
+//    }
 
     return "http://" + overwrittenPrefix + overwrittenWikiName + suffix + "/";
   }

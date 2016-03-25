@@ -35,6 +35,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,7 +84,7 @@ public class BasePageObject {
 
   public void mouseOverInArticleIframe(String cssSelecotr) {
     jsActions.execute("$($($('iframe[title*=\"Rich\"]')[0].contentDocument.body).find('"
-                      + cssSelecotr + "')).mouseenter()");
+            + cssSelecotr + "')).mouseenter()");
     try {
       Thread.sleep(500);
     } catch (InterruptedException e) {
@@ -298,7 +300,7 @@ public class BasePageObject {
     int numElem = optionalIndex.length == 0 ? 0 : optionalIndex[0];
     JavascriptExecutor jse = (JavascriptExecutor) driver;
     jse.executeScript("document.getElementsByName('" + elementName + "')[" + numElem
-                      + "].setAttribute('class', '" + classWithoutHidden + "');");
+            + "].setAttribute('class', '" + classWithoutHidden + "');");
   }
 
   public void waitForElementNotVisibleByElement(WebElement element) {
@@ -328,7 +330,7 @@ public class BasePageObject {
     changeImplicitWait(250, TimeUnit.MILLISECONDS);
     try {
       waitFor.until(CommonExpectedConditions.valueToBePresentInElementsAttribute(
-          By.cssSelector(selector), attribute, value));
+              By.cssSelector(selector), attribute, value));
     } finally {
       restoreDeaultImplicitWait();
     }
@@ -348,7 +350,7 @@ public class BasePageObject {
   public void waitForValueToBePresentInElementsAttributeByElement(WebElement element,
                                                                   String attribute, String value) {
     waitFor.until(CommonExpectedConditions.valueToBePresentInElementsAttribute(element, attribute,
-                                                                               value));
+            value));
   }
 
   public void waitForStringInURL(String givenString) {
@@ -417,7 +419,7 @@ public class BasePageObject {
     wait.forElementVisible(notificationsShowNotificationsLogo);
     jsActions.execute("$('#WallNotifications ul.subnav').addClass('show')");
     PageObjectLogging.log("norifications_showNotifications",
-                          "show notifications by adding 'show' class to element", true, driver);
+            "show notifications by adding 'show' class to element", true, driver);
   }
 
   /**
@@ -475,7 +477,13 @@ public class BasePageObject {
     try {
       purge(url);
       HttpURLConnection.setFollowRedirects(false);
-      HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+      HttpURLConnection connection;
+      Proxy proxy = Configuration.getEffectiveProxy();
+      if (proxy != null) {
+        connection = (HttpURLConnection) new URL(url).openConnection(proxy);
+      } else {
+        connection = (HttpURLConnection) new URL(url).openConnection();
+      }
       connection.disconnect();
       connection.setRequestMethod("GET");
       connection.setRequestProperty("User-Agent",
@@ -512,7 +520,7 @@ public class BasePageObject {
         throw new WebDriverException(e);
       }
     }
-    Assertion.assertEquals(statusCode, desiredStatus);
+    Assertion.assertEquals(statusCode, desiredStatus, "URL: " + url);
     PageObjectLogging.log("verifyURLStatus", url + " has status " + statusCode, true);
   }
 

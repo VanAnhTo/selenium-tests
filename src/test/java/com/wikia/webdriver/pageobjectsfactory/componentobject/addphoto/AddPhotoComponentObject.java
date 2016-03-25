@@ -49,7 +49,7 @@ public class AddPhotoComponentObject extends BasePageObject {
 
   public List<String> choosePhotos(int photoNum) {
     driver.findElement(galleryDialogPhotosList);
-    List photoNames = new ArrayList<String>();
+    List<String> photoNames = new ArrayList<String>();
     List<WebElement> list = driver.findElements(galleryDialogPhotosList);
     for (int i = 0; i < photoNum; i++) {
       scrollAndClick(list.get(i).findElement(By.cssSelector("[type=checkbox]")));

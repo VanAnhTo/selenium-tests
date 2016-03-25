@@ -1,6 +1,7 @@
 package com.wikia.webdriver.common.core.configuration;
 
 import com.wikia.webdriver.common.core.exceptions.TestEnvInitFailedException;
+import com.wikia.webdriver.common.core.geoedge.GeoEdgeProxy;
 import com.wikia.webdriver.common.properties.Credentials;
 
 import org.apache.commons.lang.StringUtils;
@@ -11,6 +12,8 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -144,7 +147,7 @@ public class Configuration {
     if (getEnv().contains("prod")) {
       return "prod";
     } else if (getEnv().contains("verify") || getEnv().contains("preview")
-               || getEnv().contains("sandbox")) {
+               || getEnv().contains("sandbox") || getEnv().contains("staging")) {
       return "staging";
     } else if (getEnv().contains("dev")) {
       return "dev";
@@ -174,6 +177,29 @@ public class Configuration {
 
   public static String getProxyAddress() {
     return getProp("proxyAddress");
+  }
+
+  public static String getEffectiveProxyAddress() {
+    String countryCode = Configuration.getCountryCode();
+    String proxyAddress = Configuration.getProxyAddress();
+    if (StringUtils.isNotBlank(proxyAddress)) {
+      return proxyAddress;
+    } else if (StringUtils.isNotBlank(countryCode)) {
+      return GeoEdgeProxy.getProxyAddress(countryCode);
+    }
+    return null;
+  }
+
+  public static Proxy getEffectiveProxy() {
+    String proxyAddress = getEffectiveProxyAddress();
+    if ((proxyAddress != null) && StringUtils.isNotBlank(proxyAddress)) {
+      int colonPosition = proxyAddress.indexOf(':');
+      return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(
+        proxyAddress.substring(0,colonPosition),
+        Integer.valueOf(proxyAddress.substring(colonPosition+1))
+      ));
+    }
+    return null;
   }
 
   public static boolean useProxy(){
