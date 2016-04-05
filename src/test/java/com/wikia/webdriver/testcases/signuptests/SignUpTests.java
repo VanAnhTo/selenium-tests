@@ -6,10 +6,11 @@ import com.wikia.webdriver.common.core.annotations.RelatedIssue;
 import com.wikia.webdriver.common.core.configuration.Configuration;
 import com.wikia.webdriver.common.properties.Credentials;
 import com.wikia.webdriver.common.templates.NewTestTemplate;
+import com.wikia.webdriver.pageobjectsfactory.componentobject.AuthModal;
 import com.wikia.webdriver.pageobjectsfactory.componentobject.toolbars.CustomizedToolbarComponentObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.WikiBasePageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.createnewwiki.CreateNewWikiLogInSignUpPageObject;
-import com.wikia.webdriver.pageobjectsfactory.pageobject.createnewwiki.CreateNewWikiPageObjectStep1;
+import com.wikia.webdriver.pageobjectsfactory.pageobject.createnewwiki.SpecialCreateNewWikiPage;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.signup.AlmostTherePageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.signup.ConfirmationPageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.signup.SignUpPageObject;
@@ -100,12 +101,12 @@ public class SignUpTests extends NewTestTemplate {
 
   @Test(groups = {"Signup_anonCanSignUpWhenCreatingNewWiki", "SignUp"})
   public void anonCanSignUpWhenCreatingNewWiki() {
-    CreateNewWikiPageObjectStep1 createNewWiki1 = new CreateNewWikiPageObjectStep1(driver).open();
+    SpecialCreateNewWikiPage createNewWiki1 = new SpecialCreateNewWikiPage().open();
     createNewWiki1.disableCaptcha();
     String wikiName = createNewWiki1.getWikiName();
     createNewWiki1.typeInWikiName(wikiName);
     createNewWiki1.verifySuccessIcon();
-    CreateNewWikiLogInSignUpPageObject cnwSignUpPage = createNewWiki1.submitToLogInSignUp();
+    AuthModal cnwSignUpPage = createNewWiki1.submitToLogInSignUp();
     SignUpPageObject signUp = cnwSignUpPage.submitSignup();
     String userName = "User" + signUp.getTimeStamp();
     String password = "Pass" + signUp.getTimeStamp();

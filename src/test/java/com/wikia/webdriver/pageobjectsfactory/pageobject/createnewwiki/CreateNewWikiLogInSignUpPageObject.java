@@ -15,8 +15,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class CreateNewWikiLogInSignUpPageObject extends WikiBasePageObject {
 
-  private static final String ERROR_MESSAGE_CSS =
-      "div.UserLoginModal div.input-group div.error-msg";
   @FindBy(css = "div.UserLoginModal input[name='username']")
   WebElement userNameField;
   @FindBy(css = "div.UserLoginModal input[name='password']")
@@ -29,8 +27,6 @@ public class CreateNewWikiLogInSignUpPageObject extends WikiBasePageObject {
   WebElement signUpSubmitButton;
   @FindBy(css = ".UserLoginModal .forgot-password")
   WebElement forgotPasswordLink;
-  @FindBy(css = ERROR_MESSAGE_CSS)
-  WebElement errorMessage;
 
   public CreateNewWikiLogInSignUpPageObject(WebDriver driver) {
     super();
@@ -65,28 +61,6 @@ public class CreateNewWikiLogInSignUpPageObject extends WikiBasePageObject {
     signUpSubmitButton.click();
     PageObjectLogging.log("submitSignUp", "signup submit button was clicked", true, driver);
     return new SignUpPageObject(driver);
-  }
-
-  public void verifyEmptyUserNameValidation() {
-    wait.forElementVisible(By.cssSelector(ERROR_MESSAGE_CSS));
-    Assertion.assertEquals(errorMessage.getText(), CreateWikiMessages.BLANK_USERNAME_ERROR_MESSAGE);
-  }
-
-  public void verifyInvalidUserNameValidation() {
-    wait.forElementVisible(By.cssSelector(ERROR_MESSAGE_CSS));
-    Assertion.assertEquals(errorMessage.getText(),
-        CreateWikiMessages.INVALID_USERNAME_ERROR_MESSAGE);
-  }
-
-  public void verifyBlankPasswordValidation() {
-    wait.forElementVisible(By.cssSelector(ERROR_MESSAGE_CSS));
-    Assertion.assertEquals(errorMessage.getText(), CreateWikiMessages.BLANK_PASSWORD_ERROR_MESSAGE);
-  }
-
-  public void verifyInvalidPasswordValidation() {
-    wait.forElementVisible(By.cssSelector(ERROR_MESSAGE_CSS));
-    Assertion.assertEquals(errorMessage.getText(),
-        CreateWikiMessages.INVALID_PASSWORD_ERROR_MESSAGE);
   }
 
   public void verifyMessageAboutNewPassword(String userName) {

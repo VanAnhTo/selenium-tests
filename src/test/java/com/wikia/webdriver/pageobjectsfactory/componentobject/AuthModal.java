@@ -1,14 +1,11 @@
 package com.wikia.webdriver.pageobjectsfactory.componentobject;
 
-import com.wikia.webdriver.common.core.WikiaWebDriver;
-import com.wikia.webdriver.common.core.elemnt.Wait;
-import com.wikia.webdriver.common.core.helpers.User;
-import com.wikia.webdriver.pageobjectsfactory.pageobject.WikiBasePageObject;
-
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+
+import com.wikia.webdriver.common.core.helpers.User;
+import com.wikia.webdriver.pageobjectsfactory.pageobject.WikiBasePageObject;
+import com.wikia.webdriver.pageobjectsfactory.pageobject.special.login.SpecialUserLoginPageObject;
 
 public class AuthModal extends WikiBasePageObject {
 
@@ -24,17 +21,18 @@ public class AuthModal extends WikiBasePageObject {
   private WebElement iFrame;
   @FindBy(css = ".forgotten-password")
   private WebElement forgottenPasswordLink;
-
+  @FindBy(css = "#loginForm small.error")
+  private WebElement errorMessage;
   private String mainWindowHandle;
 
-  public AuthModal(){
+  public AuthModal() {
     super();
     waitForNewWindow();
-    this.mainWindowHandle =  driver.getWindowHandle();
+    this.mainWindowHandle = driver.getWindowHandle();
   }
 
   private void switchToAuthModalHandle() {
-    for(String winHandle : driver.getWindowHandles()){
+    for (String winHandle : driver.getWindowHandles()) {
       driver.switchTo().window(winHandle);
     }
   }
@@ -43,14 +41,14 @@ public class AuthModal extends WikiBasePageObject {
     driver.switchTo().window(this.mainWindowHandle);
   }
 
-  public boolean isOpened(){
+  public boolean isOpened() {
     switchToAuthModalHandle();
     boolean isOpenedResult = authModal.isDisplayed();
     switchToMainWindowHandle();
     return isOpenedResult;
   }
 
-  public void login(String username, String password){
+  public void login(String username, String password) {
     switchToAuthModalHandle();
     usernameField.sendKeys(username);
     passwordField.sendKeys(password);
@@ -58,14 +56,30 @@ public class AuthModal extends WikiBasePageObject {
     switchToMainWindowHandle();
   }
 
-  public void login(User user){
+  public void login(User user) {
     login(user.getUserName(), user.getPassword());
   }
 
-  public void clickForgotPasswordLink(){
+  public SpecialUserLoginPageObject clickForgotPasswordLink() {
     switchToAuthModalHandle();
     forgottenPasswordLink.click();
     switchToMainWindowHandle();
+
+    return new SpecialUserLoginPageObject(driver);
   }
 
+  /**
+   * Get Visible error message
+   * 
+   * @return user visible error message text
+   */
+  public String getErrorMessage() {
+    try {
+      switchToAuthModalHandle();
+      wait.forElementVisible(errorMessage);
+      return errorMessage.getText();
+    } finally {
+      switchToMainWindowHandle();
+    }
+  }
 }

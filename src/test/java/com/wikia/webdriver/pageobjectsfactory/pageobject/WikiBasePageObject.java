@@ -41,7 +41,7 @@ import com.wikia.webdriver.pageobjectsfactory.pageobject.article.ArticlePageObje
 import com.wikia.webdriver.pageobjectsfactory.pageobject.article.editmode.SourceEditModePageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.article.editmode.VisualEditModePageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.chatpageobject.ChatPageObject;
-import com.wikia.webdriver.pageobjectsfactory.pageobject.createnewwiki.CreateNewWikiPageObjectStep1;
+import com.wikia.webdriver.pageobjectsfactory.pageobject.createnewwiki.SpecialCreateNewWikiPage;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.facebook.FacebookMainPageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.forumpageobject.ForumPageObject;
 import com.wikia.webdriver.pageobjectsfactory.pageobject.globalnav.GlobalNavigationPageObject;
@@ -349,9 +349,9 @@ public class WikiBasePageObject extends BasePageObject {
     return new InteractiveMapPageObject(driver);
   }
 
-  public CreateNewWikiPageObjectStep1 openSpecialCreateNewWikiPage(String wikiURL) {
+  public SpecialCreateNewWikiPage openSpecialCreateNewWikiPage(String wikiURL) {
     getUrl(wikiURL + URLsContent.SPECIAL_CREATE_NEW_WIKI);
-    return new CreateNewWikiPageObjectStep1(driver);
+    return new SpecialCreateNewWikiPage();
   }
 
   public void openSpecialWatchListPage(String wikiURL) {
