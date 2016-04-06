@@ -13,7 +13,6 @@ import com.wikia.webdriver.pageobjectsfactory.pageobject.special.themedesigner.S
 import org.testng.annotations.Test;
 
 @Test(groups = "InfoboxBuilderTests")
-@Execute(onWikia = "mediawiki119")
 public class InfoboxBuilderTests extends NewTestTemplate {
 
   @Execute(asUser = User.USER)

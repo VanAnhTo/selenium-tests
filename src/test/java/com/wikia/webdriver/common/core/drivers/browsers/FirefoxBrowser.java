@@ -51,8 +51,8 @@ public class FirefoxBrowser extends BrowserAbstract {
       tmpFile.delete();
     }
 
-    firefoxProfile = new FirefoxProfile(
-        new File(ClassLoader.getSystemResource("FirefoxProfiles/Default").getPath()));
+    firefoxProfile = new FirefoxProfile();
+//        new File(ClassLoader.getSystemResource("FirefoxProfiles/Default").getPath()));
 
     if ("true".equals(Configuration.getPageLoadStrategy())) {
       firefoxProfile.setPreference("webdriver.load.strategy", "unstable");
