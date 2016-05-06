@@ -470,17 +470,23 @@ public class WikiBasePageObject extends BasePageObject {
         driver.switchTo().frame("PreviewFrame");
       }
       // open nav if on mercury, required to see login data
-      if (this.navIconSelector != null) {
-        this.navIconSelector.click();
-      }
+      this.toggleMercuryNav();
 
       wait.forElementPresent(By
           .cssSelector(LOGGED_IN_USER_SELECTOR.replace("%userName%", userName.replace(" ", "_"))));
+      // close nav if present
+      this.toggleMercuryNav();
     } finally {
       restoreDeaultImplicitWait();
       driver.switchTo().defaultContent();
     }
     PageObjectLogging.log("verifyUserLoggedIn", "user " + userName + " logged in", true);
+  }
+
+  private void toggleMercuryNav() {
+    if (this.navIconSelector != null) {
+      this.navIconSelector.click();
+    }
   }
 
   public void verifyUserLoggedIn(User user) {
