@@ -34,7 +34,7 @@ public class Navigating extends NewTestTemplate {
    * ANONS ON DESKTOP SECTION
    */
 
-  @Test(groups = "discussions-anonUserOnDesktopCanClickBackToWiki", enabled = false)
+  @Test(groups = "discussions-anonUserOnDesktopCanClickBackToWiki")
   @RelatedIssue(issueID = "SOC-2567")
   @Execute(asUser = User.ANONYMOUS)
   @InBrowser(browser = Browser.FIREFOX, browserSize = DESKTOP_RESOLUTION)
@@ -42,7 +42,7 @@ public class Navigating extends NewTestTemplate {
     backToWiki();
   }
 
-  @Test(groups = "discussions-anonUserOnDesktopCanClickAvatar", enabled = false)
+  @Test(groups = "discussions-anonUserOnDesktopCanClickAvatar")
   @RelatedIssue(issueID = "SOC-2567")
   @Execute(asUser = User.ANONYMOUS, onWikia = MercuryWikis.MEDIAWIKI_119)
   @InBrowser(browser = Browser.FIREFOX, browserSize = DESKTOP_RESOLUTION)

@@ -34,7 +34,7 @@ public class SignupTests extends NewTestTemplate {
   }
 
 
-  @Test(groups = "MercurySignupTest_002", enabled = false)
+  @Test(groups = "MercurySignupTest_002")
   @RelatedIssue(issueID = "SOC-2567")
   public void MercurySignupTest_002_signupErrorEmailInUse() {
     init();
