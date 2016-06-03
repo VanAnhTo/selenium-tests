@@ -80,7 +80,7 @@ public class Upvoting extends NewTestTemplate {
     firstReplyUpvoteButtonClickAddsAnUpvoteAndSecondClickRemovesTheUpvote();
   }
 
-  @Test(groups = "discussions-loggedInUserOnMobileCanUpvote", enabled = false)
+  @Test(groups = "discussions-loggedInUserOnMobileCanUpvote")
   @RelatedIssue(issueID = "SOC-2596")
   @Execute(asUser = User.USER_3)
   @InBrowser(browserSize = MOBILE_RESOLUTION)

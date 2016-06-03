@@ -54,7 +54,7 @@ public class PostsListPage extends WikiBasePageObject {
   @FindBy(css = ".icon.upvote")
   private List<WebElement> replyUpvoteButton;
 
-  @FindBy(css = ".post-counters svg.upvote")
+  @FindBy(css = ".upvote-count")
   private List<WebElement> replyVoteCount;
 
   @FindBy(css = ".toggle-share")
