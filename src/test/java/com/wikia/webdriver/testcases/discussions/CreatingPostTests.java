@@ -19,7 +19,6 @@ import org.testng.annotations.Test;
 public class CreatingPostTests extends NewTestTemplate {
 
   private static final String DESKTOP_RESOLUTION = "1920x1080";
-  private static final String MOBILE_RESOLUTION = "600x800";
 
   /**
    * ANONS ON MOBILE SECTION
@@ -43,6 +42,30 @@ public class CreatingPostTests extends NewTestTemplate {
 
   public void anonUserOnDesktopCanNotWriteNewPost() {
     userOnDesktopMustBeLoggedInToUsePostCreator();
+  }
+
+  /**
+   * LOGGED IN USERS ON MOBILE SECTION
+   */
+
+  @Test(groups = "discussions-loggedInUserOnMobileCanCanAddNewPost")
+  @Execute(asUser = User.USER_3)
+  @InBrowser(emulator = Emulator.GOOGLE_NEXUS_5)
+
+  public void loggedInUserOnMobileCanCanAddNewPost() {
+    ;
+  }
+
+  /**
+   * LOGGED IN USERS ON DESKTOP SECTION
+   */
+
+  @Test(groups = "discussions-loggedInUserOnDesktopCanCanAddNewPost")
+  @Execute(asUser = User.USER_3)
+  @InBrowser(browser = Browser.FIREFOX, browserSize = DESKTOP_RESOLUTION)
+
+  public void loggedInUserOnDesktopCanCanAddNewPost() {
+    ;
   }
 
   /**
